@@ -1,45 +1,42 @@
 import { Injectable } from '@angular/core';
-import {DatabaseService} from './database.service';
-import {Platform} from '@ionic/angular';
+import { Http } from '@capacitor-community/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardService {
 
-  constructor(
-    public db: DatabaseService,
-    public platform: Platform,
-  ) {
+  constructor() { }
+
+  loadCard() {
+    console.log('[Load][Cards]');
+    return new Promise( (resolve, reject) => {
+       this.getCardsFromApi().then(({data}) => {
+         console.log(data);
+       });
+    });
   }
 
-  init = () => {
-    console.log('[Configs][init]');
+  getCardsFromApi() {
     return new Promise((resolve, reject) => {
-      this.db.query(`
-      CREATE TABLE IF NOT EXISTS checklists(
-        checklistId NUMBER,
-        statusId NUMBER,
-        propertyId NUMBER,
-        ownerId NUMBER,
-        projectId NUMBER,
-        stageId NUMBER,
-        typeId NUMBER,
-        propertyTypeId NUMBER,
-        templateId NUMBER,
-        data TEXT,
-        created DATE,
-        updated DATE,
-        checklistPadreId NUMBER,
-    apiHost TEXT,
-    appVersion TEXT
-      )`)
-        .then(_res => {
-          resolve(_res);
-        })
-        .catch(_err => {
-          reject(_err);
+      const endPoint = 'https://omgvamp-hearthstone-v1.p.rapidapi.com/cards';
+      let getCards = Http.get(
+        {
+          url: endPoint,
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: '*/*',
+            'X-RapidAPI-Key': '9946fbb6b1msh1fcc8529682e182p1dc023jsnf56c5836d4bc'
+          },
+          params: {
+            locale: 'esMX'
+          }
+          //TODO
+          //data: JSON.stringify(_data)}
         });
+      getCards.then(res => {
+        resolve(res);
+      });
     });
   }
 }

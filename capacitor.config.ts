@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.example.app',
-  appName: 'hearthstone',
+  appName: 'hearthstoneDecks',
   webDir: 'www',
   bundledWebRuntime: false
 };
