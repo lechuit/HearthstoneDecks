@@ -1,5 +1,8 @@
 {
-  "name": "hearthstone",
-  "integrations": {},
+  "name": "hearthstoneDecks",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
   "type": "angular"
 }
