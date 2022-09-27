@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@capacitor-community/http';
+import {CardProvider} from '../providers/card.provider';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardService {
 
-  constructor() { }
+  constructor(
+    public card: CardProvider
+  ) { }
 
   loadCard() {
     console.log('[Load][Cards]');
     return new Promise( (resolve, reject) => {
        this.getCardsFromApi().then(({data}) => {
-         console.log(data);
+         //console.log(data);
+         var arrayDataCards = this.card.saveLocalSqliteCards(data);
        });
     });
   }
@@ -20,7 +24,7 @@ export class CardService {
   getCardsFromApi() {
     return new Promise((resolve, reject) => {
       const endPoint = 'https://omgvamp-hearthstone-v1.p.rapidapi.com/cards';
-      let getCards = Http.get(
+      const getCards = Http.get(
         {
           url: endPoint,
           headers: {

@@ -9,7 +9,7 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
   providedIn: 'root'
 })
 
-export class DbService {
+export class DbProvider {
   private storage: SQLiteObject;
   private options = { name: 'bc.db', location: 'default'};
   private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);

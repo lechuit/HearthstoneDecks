@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {InitService} from '../providers/init.service';
+import {InitProvider} from '../providers/init.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +9,7 @@ import {InitService} from '../providers/init.service';
 export class HomePage {
 
   constructor(
-    public Init: InitService,
+    public Init: InitProvider,
   ) {}
 
 }

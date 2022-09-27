@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import {DbService} from './db.service';
+import {DbProvider} from './db.provider';
 import {Platform} from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CardService {
+export class CardProvider {
 
   constructor(
-    public db: DbService,
+    public db: DbProvider,
     public platform: Platform,
   ) {
   }
@@ -34,4 +34,8 @@ export class CardService {
         });
     });
   };
+
+  saveLocalSqliteCards(dataArrayCards) {
+    console.log('DESDE SAVE LOCAL',dataArrayCards);
+  }
 }

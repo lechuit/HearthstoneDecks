@@ -3,7 +3,7 @@ import {Platform} from '@ionic/angular';
 import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
 import { NavController } from '@ionic/angular';
 
-import { InitService } from './providers/init.service';
+import { InitProvider } from './providers/init.service';
 import {CardService} from './services/card.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    public Init: InitService,
+    public Init: InitProvider,
     public cardService: CardService,
     private navCtrl: NavController
   ) {

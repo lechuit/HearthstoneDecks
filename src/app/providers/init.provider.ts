@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 
-import {CardService} from './card.service';
-import {DbService} from './db.service';
+import {CardProvider} from './card.provider';
+import {DbProvider} from './db.provider';
 
 @Injectable({
   providedIn: 'root'
 })
-export class InitService {
+export class InitProvider {
 
   constructor(
-    public Card: CardService,
-    public db: DbService
+    public card: CardProvider,
+    public db: DbProvider
   ) { }
 
   initDatabase() {
     console.log('INIT DB');
     return new Promise((resolve, reject) => {
-      var initCardService = this.Card.init();
+      const initCardService = this.card.init();
       Promise.all([
         initCardService
       ]).then(values => {
