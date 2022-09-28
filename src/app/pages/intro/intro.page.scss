@@ -1,0 +1,46 @@
+.spinner{
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.spinner::before,
+.spinner:after{
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+}
+
+.spinner::before{
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+  0deg, #ff00cc 0%,
+  #333399 100%);
+  animation: spin .5s infinite linear;
+}
+
+.spinner:after{
+  width: 85%;
+  height: 85%;
+  background-color: #000000;
+  top: 50%;
+  left: 100%;
+  transform: translate(-50%, -50%);
+}
+@keyframes spin {
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+ion-content{
+  --ion-background-color:#000;
+}
+
+ion-col{
+  position: fixed;
+  top:50%;
+  transform:translateY(-50%);
+}

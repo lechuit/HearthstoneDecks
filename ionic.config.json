@@ -1,5 +1,5 @@
 {
-  "name": "hearthstoneDecks",
+  "name": "deckApp",
   "integrations": {
     "capacitor": {},
     "cordova": {}

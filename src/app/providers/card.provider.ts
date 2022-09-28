@@ -74,6 +74,7 @@ export class CardProvider {
       try {
         this.db.query('SELECT * FROM cards')
           .then(_res => {
+            console.log('SELECT ',_res.item(0));
             if(_res.length > 0){
               resolve(_res.item);
             }else{
