@@ -26,8 +26,9 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.splashScreen.show();
       this.init.initDatabase().then(resul => {
-         this.cardService.loadCards();
-        //this.navCtrl.navigateForward('/intro');
+         this.cardService.loadCards().then(res => {
+           this.navCtrl.navigateForward('/home');
+         });
       });
     });
   }

@@ -17,14 +17,17 @@ export class CardService {
     console.log('[Load][Cards]');
     return new Promise( (resolve, reject) => {
       if(this.connectivity.isOnline()) {
-        this.getCardsFromApi().then(({data}) => {
-          //console.log(data);
-          const arrayDataCards = this.card.saveLocalSqliteCards(data);
+        this.card.getLocalCards().then(res => {
+          if (res === undefined){
+            this.getCardsFromApi().then(({data}) => {
+              const arrayDataCards = this.card.saveLocalSqliteCards(data);
+            });
+          }
+          resolve(res);
         });
       }else {
         console.log('OFF-LINE');
         this.card.getLocalCards().then(res => {
-          console.log(res);
           resolve(res);
         });
       }
@@ -45,8 +48,6 @@ export class CardService {
           params: {
             locale: 'esMX'
           }
-          //TODO
-          //data: JSON.stringify(_data)}
         });
       getCards.then(res => {
         resolve(res);
