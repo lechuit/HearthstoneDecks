@@ -16,6 +16,6 @@ export class HomePage implements OnInit {
   }
 
   goToCreateDeck() {
-    this.navCtrl.navigateForward('/createDeck');
+    this.navCtrl.navigateForward('/choose-hero');
   }
 }

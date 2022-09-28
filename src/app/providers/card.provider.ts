@@ -69,16 +69,18 @@ export class CardProvider {
   }
 
   getLocalCards() {
-    console.log('[Checklist][getLocalChecklists]');
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<any>((resolve, reject) => {
       try {
         this.db.query('SELECT * FROM cards')
           .then(_res => {
-            console.log('SELECT ',_res.item(0));
+            const arrayCards = [];
             if(_res.length > 0){
-              resolve(_res.item);
+              for(let i = 0; i < _res.length; i++) {
+                arrayCards.push(_res.item(i));
+              }
+              resolve(arrayCards);
             }else{
-              resolve();
+              resolve(arrayCards);
             }
           })
           .catch(_err => {

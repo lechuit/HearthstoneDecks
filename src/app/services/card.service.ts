@@ -18,12 +18,14 @@ export class CardService {
     return new Promise( (resolve, reject) => {
       if(this.connectivity.isOnline()) {
         this.card.getLocalCards().then(res => {
-          if (res === undefined){
+          if (res.length === 0){
             this.getCardsFromApi().then(({data}) => {
               const arrayDataCards = this.card.saveLocalSqliteCards(data);
+              resolve(res);
             });
+          }else {
+            resolve(res);
           }
-          resolve(res);
         });
       }else {
         console.log('OFF-LINE');
