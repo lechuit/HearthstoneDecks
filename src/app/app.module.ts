@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,7 @@ import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
     SQLite,
     SQLitePorter,
     Network,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, ScreenOrientation
   ],
   bootstrap: [AppComponent],
 })

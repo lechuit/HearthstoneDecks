@@ -1,0 +1,14 @@
+.logo{
+  padding-top: 55px;
+}
+
+ion-col{
+  position: fixed;
+  top:55%;
+  transform:translateY(-50%);
+}
+
+ion-button{
+  --ion-color-primary: #c7a01d;
+  margin-bottom: 30px;
+}

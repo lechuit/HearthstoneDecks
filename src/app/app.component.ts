@@ -5,6 +5,7 @@ import { NavController } from '@ionic/angular';
 
 import { InitProvider } from './providers/init.provider';
 import {CardService} from './services/card.service';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +18,10 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     public init: InitProvider,
     public cardService: CardService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    public screenOrientacion: ScreenOrientation
   ) {
+    this.screenOrientacion.lock(this.screenOrientacion.ORIENTATIONS.PORTRAIT);
     this.initializeApp();
   }
 
