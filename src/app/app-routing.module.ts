@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'intro',
     loadChildren: () => import('./pages/intro/intro.module').then( m => m.IntroPageModule)
   },
+  {
+    path: 'create-deck',
+    loadChildren: () => import('./pages/create-deck/create-deck.module').then( m => m.CreateDeckPageModule)
+  },
 ];
 
 @NgModule({

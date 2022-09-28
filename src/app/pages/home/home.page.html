@@ -2,7 +2,7 @@
   <ion-row>
       <img src="assets/logo.png" alt="" class="logo">
     <ion-col class="ion-text-center">
-      <ion-button shape="round" size="large"  expand="block">Crear Mazo</ion-button>
+      <ion-button (click)="goToCreateDeck()" routerDirection="forward" shape="round" size="large" expand="block">Crear Mazo</ion-button>
       <ion-button shape="round" size="large" expand="block">Editar Mazo</ion-button>
       <!--<ion-button color="primary">Primary</ion-button>
       <ion-button color="secondary">Secondary</ion-button>
