@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
 import { Platform } from '@ionic/angular';
 
-
-
-var Connection;
 @Injectable({
   providedIn: 'root'
 })
@@ -19,9 +16,6 @@ export class ConnectivityService {
   }
 
   isOnline(): boolean {
-    console.log('[Connectivity][isOnline]');
-    console.log(this.network.type);
-    console.log(this.onDevice);
     if(this.onDevice && this.network.type != 'none'){
       return true;
     } else {

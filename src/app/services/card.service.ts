@@ -23,7 +23,10 @@ export class CardService {
         });
       }else {
         console.log('OFF-LINE');
-        this.card.getLocalCards();
+        this.card.getLocalCards().then(res => {
+          console.log(res);
+          resolve(res);
+        });
       }
     });
   }

@@ -72,7 +72,7 @@ export class CardProvider {
     console.log('[Checklist][getLocalChecklists]');
     return new Promise<void>((resolve, reject) => {
       try {
-        this.db.query('SELECT * FROM checklists')
+        this.db.query('SELECT * FROM cards')
           .then(_res => {
             if(_res.length > 0){
               resolve(_res.item);
@@ -85,7 +85,6 @@ export class CardProvider {
             reject(_err);
           });
       } catch (error) {
-        console.error('Config.checkKey',new Error('Se produjo una excepción'));
         reject(new Error('Se produjo una excepción'));
       }
     });
