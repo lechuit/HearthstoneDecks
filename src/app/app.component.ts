@@ -3,7 +3,7 @@ import {Platform} from '@ionic/angular';
 import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
 import { NavController } from '@ionic/angular';
 
-import { InitProvider } from './providers/init.service';
+import { InitProvider } from './providers/init.provider';
 import {CardService} from './services/card.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    public Init: InitProvider,
+    public init: InitProvider,
     public cardService: CardService,
     private navCtrl: NavController
   ) {
@@ -25,8 +25,8 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.splashScreen.show();
-      this.Init.initDatabase().then(resul => {
-         this.cardService.loadCard();
+      this.init.initDatabase().then(resul => {
+         this.cardService.loadCards();
         //this.navCtrl.navigateForward('/intro');
       });
     });

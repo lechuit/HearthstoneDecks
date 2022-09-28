@@ -6,6 +6,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { Network } from '@awesome-cordova-plugins/network/ngx';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -20,6 +21,7 @@ import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
     SplashScreen,
     SQLite,
     SQLitePorter,
+    Network,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],

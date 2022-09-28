@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@capacitor-community/http';
 import {CardProvider} from '../providers/card.provider';
+import {ConnectivityService} from './connectivity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +9,22 @@ import {CardProvider} from '../providers/card.provider';
 export class CardService {
 
   constructor(
-    public card: CardProvider
+    public card: CardProvider,
+    public connectivity: ConnectivityService,
   ) { }
 
-  loadCard() {
+  loadCards() {
     console.log('[Load][Cards]');
     return new Promise( (resolve, reject) => {
-       this.getCardsFromApi().then(({data}) => {
-         //console.log(data);
-         var arrayDataCards = this.card.saveLocalSqliteCards(data);
-       });
+      if(this.connectivity.isOnline()) {
+        this.getCardsFromApi().then(({data}) => {
+          //console.log(data);
+          const arrayDataCards = this.card.saveLocalSqliteCards(data);
+        });
+      }else {
+        console.log('OFF-LINE');
+        this.card.getLocalCards();
+      }
     });
   }
 
