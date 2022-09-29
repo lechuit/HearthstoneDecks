@@ -11,6 +11,7 @@ export class CreateDeckPage implements OnInit {
   pagClassCard = 1;
   pagNeutralCard = 1;
   pagChooseCard = 1;
+  contador = 0;
   defaultImg = 'assets/images/back.png';
 
   className: any;
@@ -27,7 +28,6 @@ export class CreateDeckPage implements OnInit {
     this.className = this.router.getCurrentNavigation().extractedUrl.queryParams.className;
     this.cards = 'card_class';
     this.cardService.getLocalCards().then(res => {
-      console.log(res);
       this.classCards = res.filter(c => c.playerClass === this.className).map((c) => { c.count = 0; return c; });
       this.neutralCards = res.filter(c => c.playerClass === 'Neutral').map((c) => { c.count = 0; return c; });
     });
@@ -38,14 +38,20 @@ export class CreateDeckPage implements OnInit {
 
 
   addDeck(card) {
-    const addCard = card.playerClass === 'Neutral' ?
-      this.neutralCards.find(c => c.cardId === card.cardId) :
-      this.classCards.find(c => c.cardId === card.cardId);
+    if (this.contador === 50){
+      console.log('Limite de cartas en el mazo');
+    }else {
+      const addCard = card.playerClass === 'Neutral' ?
+        this.neutralCards.find(c => c.cardId === card.cardId) :
+        this.classCards.find(c => c.cardId === card.cardId);
 
-    if (addCard.count < 4) {
-      addCard.count++;
-      if (!this.choosenCards.find(c => c.cardId === card.cardId)) {
-        this.choosenCards.push(addCard);
+      if (addCard.count < 4) {
+        addCard.count++;
+        this.contador++;
+        console.log(this.contador);
+        if (!this.choosenCards.find(c => c.cardId === card.cardId)) {
+          this.choosenCards.push(addCard);
+        }
       }
     }
   }
@@ -57,6 +63,7 @@ export class CreateDeckPage implements OnInit {
 
     if (subtracCard.count > 0) {
       subtracCard.count--;
+      this.contador--;
 
       if (subtracCard.count === 0) {
         const indexCard = this.choosenCards.findIndex(c => c.id === card.id);
@@ -65,5 +72,9 @@ export class CreateDeckPage implements OnInit {
         }
       }
     }
+  }
+
+  saveDeck() {
+    console.log(this.choosenCards);
   }
 }
