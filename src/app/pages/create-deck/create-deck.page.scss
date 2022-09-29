@@ -22,3 +22,25 @@ ion-card-content {
 ::ng-deep ul > li.active > a {
   color: white !important;
 }
+
+ion-footer{
+  margin: 0 !important;
+  ion-grid{
+    padding: 0 !important;
+    ion-col{
+      padding: 0 !important;
+      ion-button{
+        min-height: 45px;
+        margin: 0 !important;
+        .icon-rigth{
+          position: absolute;
+          right: 20px;
+        }
+        .icon-left{
+          position: absolute;
+          left: 20px;
+        }
+      }
+    }
+  }
+}

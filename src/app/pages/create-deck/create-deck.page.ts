@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CardProvider} from '../../providers/card.provider';
+import {AlertsService} from '../../services/alerts.service';
 
 @Component({
   selector: 'app-create-deck',
@@ -12,6 +13,7 @@ export class CreateDeckPage implements OnInit {
   pagNeutralCard = 1;
   pagChooseCard = 1;
   contador = 0;
+  hiddenBtnSave = true;
   defaultImg = 'assets/images/back.png';
 
   className: any;
@@ -24,12 +26,19 @@ export class CreateDeckPage implements OnInit {
   constructor(
     public router: Router,
     public cardService: CardProvider,
+    public alertService: AlertsService
   ) {
     this.className = this.router.getCurrentNavigation().extractedUrl.queryParams.className;
     this.cards = 'card_class';
     this.cardService.getLocalCards().then(res => {
-      this.classCards = res.filter(c => c.playerClass === this.className).map((c) => { c.count = 0; return c; });
-      this.neutralCards = res.filter(c => c.playerClass === 'Neutral').map((c) => { c.count = 0; return c; });
+      this.classCards = res.filter(c => c.playerClass === this.className).map((c) => {
+        c.count = 0;
+        return c;
+      });
+      this.neutralCards = res.filter(c => c.playerClass === 'Neutral').map((c) => {
+        c.count = 0;
+        return c;
+      });
     });
   }
 
@@ -38,9 +47,12 @@ export class CreateDeckPage implements OnInit {
 
 
   addDeck(card) {
-    if (this.contador === 50){
+    if (this.contador === 50) {
+      this.hiddenBtnSave = false;
+      this.alertService.presentAlert('Limite de cartas alcanzado', '', '');
       console.log('Limite de cartas en el mazo');
-    }else {
+
+    } else {
       const addCard = card.playerClass === 'Neutral' ?
         this.neutralCards.find(c => c.cardId === card.cardId) :
         this.classCards.find(c => c.cardId === card.cardId);
@@ -52,6 +64,11 @@ export class CreateDeckPage implements OnInit {
         if (!this.choosenCards.find(c => c.cardId === card.cardId)) {
           this.choosenCards.push(addCard);
         }
+      }
+      if (this.contador === 50) {
+        this.hiddenBtnSave = false;
+      }else{
+        this.hiddenBtnSave = true;
       }
     }
   }
@@ -68,13 +85,19 @@ export class CreateDeckPage implements OnInit {
       if (subtracCard.count === 0) {
         const indexCard = this.choosenCards.findIndex(c => c.id === card.id);
         if (indexCard > -1) {
-          this.choosenCards.splice(indexCard , 1);
+          this.choosenCards.splice(indexCard, 1);
         }
+      }
+      if (this.contador === 50) {
+        this.hiddenBtnSave = false;
+      }else{
+        this.hiddenBtnSave = true;
       }
     }
   }
 
   saveDeck() {
+
     console.log(this.choosenCards);
   }
 }
