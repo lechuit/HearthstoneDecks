@@ -18,73 +18,74 @@
       </ion-segment-button>
     </ion-segment>
   </ion-row>
-
   <ion-row [ngSwitch]="cards">
     <ion-row *ngSwitchCase="'card_class'">
       <ion-col size="6" *ngFor="let card of classCards">
         <ion-card>
-          <ion-img src="{{card.img}}"></ion-img>
+          <img [defaultImage]="defaultImg" [lazyLoad]="card.img">
+          <ion-card-content class="ion-text-center">
+            <ion-row>
+              <ion-col (click)="removeDeck(card)">
+                <ion-button color="danger">
+                  <ion-icon name="caret-down-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col class="card-count" style="color: white">
+                {{card.count}}
+              </ion-col>
+              <ion-col class="ion-text-center" (click)="addDeck(card)">
+                <ion-button color="secondary">
+                  <ion-icon name="caret-up-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngSwitchCase="'neutral_class'">
+      <ion-col size="6" *ngFor="let card of neutralCards">
+        <ion-card>
+          <img [defaultImage]="defaultImg" [lazyLoad]="card.img">
           <ion-card-content>
             <ion-row>
-              <ion-col >
+              <ion-col (click)="removeDeck(card)">
+                <ion-button color="danger">
+                  <ion-icon name="caret-down-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col class="card-count">
+                {{card.count}}
+              </ion-col>
+              <ion-col (click)="addDeck(card)" class="ion-text-center" >
+                <ion-button color="secondary">
+                  <ion-icon name="caret-up-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngSwitchCase="'choosen_cards'">
+      <ion-col size="6" *ngFor="let card of choosenCards">
+        <ion-card>
+          <img [defaultImage]="defaultImg" [lazyLoad]="card.img">
+          <ion-card-content>
+            <ion-row>
+              <ion-col (click)="removeDeck(card)">
                 <ion-button color="danger">
                   <ion-icon name="caret-down-outline"></ion-icon>
                 </ion-button>
               </ion-col>
               <ion-col class="card-count">
               </ion-col>
-              <ion-col center text-center>
-                <button ion-button icon-start color="secondary">
-                  <ion-icon name="arrow-dropup"></ion-icon>
-                </button>
-              </ion-col>
-            </ion-row>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col col-6>
-        <ion-card>
-          <img src=""/>
-          <ion-card-content>
-            <ion-row>
-              <ion-col >
-                <button ion-button icon-start color="danger">
-                  <ion-icon name="arrow-dropdown"></ion-icon>
-                </button>
-              </ion-col>
-              <ion-col class="card-count">
-              </ion-col>
-              <ion-col center text-center >
-                <button ion-button icon-start color="secondary">
-                  <ion-icon name="arrow-dropup"></ion-icon>
-                </button>
-              </ion-col>
-            </ion-row>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col >
-        <ion-card>
-          <img src=""/>
-          <ion-card-content>
-            <ion-row>
-              <ion-col >
-                <button ion-button icon-start color="danger">
-                  <ion-icon name="arrow-dropdown"></ion-icon>
-                </button>
-              </ion-col>
-              <ion-col class="card-count">
-              </ion-col>
-              <ion-col center text-center >
-                <button ion-button icon-start color="secondary">
-                  <ion-icon name="arrow-dropup"></ion-icon>
-                </button>
+              <ion-col (click)="addDeck(card)">
+                <ion-button color="secondary">
+                  <ion-icon name="caret-up-outline"></ion-icon>
+                </ion-button>
               </ion-col>
             </ion-row>
           </ion-card-content>

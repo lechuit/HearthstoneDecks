@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { CreateDeckPageRoutingModule } from './create-deck-routing.module';
 
 import { CreateDeckPage } from './create-deck.page';
+import {LazyLoadImageModule} from "ng-lazyload-image";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CreateDeckPageRoutingModule
+    CreateDeckPageRoutingModule,
+    LazyLoadImageModule
   ],
   declarations: [CreateDeckPage]
 })

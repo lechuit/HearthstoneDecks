@@ -12,15 +12,15 @@ export class ChooseHeroPage implements OnInit {
     public router: Router
   ) {
     this.heroes=[
-      { className: 'warrior', image: '/assets/images/garrosh.png' },
-      { className: 'shaman', image: '/assets/images/thrall.png' },
-      { className: 'rogue', image: '/assets/images/valeera.png' },
-      { className: 'paladin', image: '/assets/images/uther.png' },
-      { className: 'hunter', image: '/assets/images/rexxar.png' },
-      { className: 'druid', image: '/assets/images/malfurion.png' },
-      { className: 'warlock', image: '/assets/images/guldan.png' },
-      { className: 'mage', image: '/assets/images/jaina.png' },
-      { className: 'priest', image: '/assets/images/anduin.png' }
+      { className: 'Warrior', image: '/assets/images/garrosh.png' },
+      { className: 'Shaman', image: '/assets/images/thrall.png' },
+      { className: 'Rogue', image: '/assets/images/valeera.png' },
+      { className: 'Paladin', image: '/assets/images/uther.png' },
+      { className: 'Hunter', image: '/assets/images/rexxar.png' },
+      { className: 'Druid', image: '/assets/images/malfurion.png' },
+      { className: 'Warlock', image: '/assets/images/guldan.png' },
+      { className: 'Mage', image: '/assets/images/jaina.png' },
+      { className: 'Priest', image: '/assets/images/anduin.png' }
     ];
   }
 
