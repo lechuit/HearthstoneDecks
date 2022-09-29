@@ -30,7 +30,7 @@ export class AppComponent {
       this.splashScreen.show();
       this.init.initDatabase().then(resul => {
          this.cardService.loadCards().then(res => {
-           this.navCtrl.navigateForward('/home');
+           this.navCtrl.navigateForward('/home',{animationDirection:'forward'});
          });
       });
     });

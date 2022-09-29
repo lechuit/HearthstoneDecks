@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Selecciona tu Heroe</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="12" *ngFor="let deck of decks">
+      <ion-card (click)="editDeck(deck.deckId)">
+        <ion-img src="{{deck.img}}"></ion-img>
+        <ion-card-content>
+          <ion-card-title class="ion-text-center">
+            {{deck.deckName}}
+          </ion-card-title>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {DbProvider} from './db.provider';
-import {resolve} from "@angular/compiler-cli";
 
 @Injectable({
   providedIn: 'root'
@@ -30,15 +29,14 @@ export class DeckProvider {
         (
           deckId
           INTEGER
-          UNIQUE,
+          UNIQUE
+          PRIMARY
+          KEY,
           deckName
           TEXT,
-          PRIMARY
-          KEY
-        (
-          deckId
-        )
-          )`)
+          playerClass
+          TEXT
+        )`)
         .then(_res => {
           resolve(_res);
         })
@@ -52,6 +50,12 @@ export class DeckProvider {
     return new Promise((resolve, reject) => {
       this.db.query(`CREATE TABLE IF NOT EXISTS deckCards
                      (
+                       id
+                       INTEGER
+                       PRIMARY
+                       KEY
+                       AUTOINCREMENT
+                       UNIQUE,
                        deckId
                        INTEGER,
                        cardId
@@ -66,10 +70,10 @@ export class DeckProvider {
     });
   }
 
-  saveLocalDeck(name) {
+  saveLocalDeck(name, playerClass) {
     return new Promise<void>((resolve, reject) => {
       this.db.query(`INSERT
-      OR IGNORE INTO deck(deckName) VALUES ("${name.name}")`).then(res => {
+      OR IGNORE INTO deck(deckName,playerClass) VALUES ("${name.name}", "${playerClass}")`).then(res => {
         resolve(res[0]);
       }).catch(_err => {
         reject(_err);
@@ -110,6 +114,40 @@ export class DeckProvider {
         }).catch(_err => {
           reject(_err);
         });
+      });
+    });
+  }
+
+  getAllDEcks() {
+    return new Promise<any>((resolve, reject) => {
+      this.db.query(`SELECT *
+                     FROM deck`).then(res => {
+        const arrayDecks = [];
+        if (res.length > 0) {
+          for (let i = 0; i < res.length; i++) {
+            arrayDecks.push(res.item(i));
+          }
+          resolve(arrayDecks);
+        } else {
+          resolve(arrayDecks);
+        }
+      });
+    });
+  }
+
+  getAllCardInDeck() {
+    return new Promise<any>((resolve, reject) => {
+      this.db.query(`SELECT *
+                     FROM deck`).then(res => {
+        const arrayDecks = [];
+        if (res.length > 0) {
+          for (let i = 0; i < res.length; i++) {
+            arrayDecks.push(res.item(i));
+          }
+          resolve(arrayDecks);
+        } else {
+          resolve(arrayDecks);
+        }
       });
     });
   }

@@ -23,6 +23,18 @@ const routes: Routes = [
     path: 'choose-hero',
     loadChildren: () => import('./pages/choose-hero/choose-hero.module').then( m => m.ChooseHeroPageModule)
   },
+  {
+    path: 'view-decks',
+    loadChildren: () => import('./pages/view-decks/view-decks.module').then( m => m.ViewDecksPageModule)
+  },
+  {
+    path: 'view',
+    loadChildren: () => import('./pages/view/view.module').then( m => m.ViewPageModule)
+  },
+  {
+    path: 'edit-deck',
+    loadChildren: () => import('./pages/edit-deck/edit-deck.module').then( m => m.EditDeckPageModule)
+  },
 ];
 
 @NgModule({

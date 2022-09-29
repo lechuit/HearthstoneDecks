@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CardProvider} from '../../providers/card.provider';
 import {AlertsService} from '../../services/alerts.service';
-import {DeckProvider} from '../../providers/deck.provider';
-import {NavController} from "@ionic/angular";
+import {NavController} from '@ionic/angular';
+import {DeckService} from '../../services/deck.service';
 
 @Component({
   selector: 'app-create-deck',
@@ -29,12 +29,12 @@ export class CreateDeckPage implements OnInit {
     public router: Router,
     public cardService: CardProvider,
     public alertService: AlertsService,
-    public deckProvider: DeckProvider,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    public deckService: DeckService
   ) {
     this.className = this.router.getCurrentNavigation().extractedUrl.queryParams.className;
     if (this.className === 'undefined'){
-      this.navCtrl.navigateForward('/choose-hero',);
+      this.navCtrl.navigateForward('/choose-hero',{animationDirection:'back'});
     }
     this.cards = 'card_class';
     this.cardService.getLocalCards().then(res => {
@@ -42,6 +42,7 @@ export class CreateDeckPage implements OnInit {
         c.count = 0;
         return c;
       });
+      console.log(this.classCards,'classDard');
       this.neutralCards = res.filter(c => c.playerClass === 'Neutral').map((c) => {
         c.count = 0;
         return c;
@@ -101,28 +102,6 @@ export class CreateDeckPage implements OnInit {
   }
 
   saveDeck() {
-    return new Promise((resolve, reject) => {
-      this.alertService.presentAlertToSaveDeck().then(nameDeck => {
-        this.deckProvider.saveLocalDeck(nameDeck).then(() => {
-          this.deckProvider.getLocalDeckByName(nameDeck).then(result => {
-            this.deckProvider.saveLocalDeckCards(result.deckId,this.choosenCards).then(res => {
-              this.alertService.presentAlert('Mazo guardado!','','').then(r=>{
-                resolve(r);
-              });
-            }).catch(err => {
-              reject(err);
-            });
-          }).catch(err => {
-            reject(err);
-          });
-        }).catch(err => {
-          reject(err);
-        });
-      }).catch(err => {
-        reject(err);
-      });
-    }).then(()=>{
-      this.navCtrl.navigateForward('/home');
-    });
+    this.deckService.insertLocalDeck(this.choosenCards,this.className);
   }
 }
