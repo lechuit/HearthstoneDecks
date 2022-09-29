@@ -100,8 +100,9 @@ export class CreateDeckPage implements OnInit {
     console.log('1');
     return new Promise((resolve, reject) => {
       this.alertService.presentAlertToSaveDeck().then(res => {
-        console.log('desde el create', res);
-        this.deckProvider.saveLocalDeck(this.choosenCards, res);
+        this.deckProvider.saveLocalDeck(res).then(result => {
+          console.log('FINISH INSERT DECK', result);
+        });
       });
     });
     /*this.deckProvider.saveLocalDeck(this.choosenCards).then(res => {

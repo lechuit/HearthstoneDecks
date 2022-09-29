@@ -65,13 +65,21 @@ export class DeckProvider {
     });
   }
 
-  saveLocalDeck(choosenCards: Array<any>, name) {
+  saveLocalDeck(name) {
     return new Promise<void>((resolve, reject) => {
-      this.db.query(`INSERT OR IGNORE INTO deck(deckName) VALUES ("${name})"`).then(res=>{
-        console.log('INSERT DECK',res);
-        resolve(res);
+      this.db.query(`INSERT OR IGNORE INTO deck(deckName) VALUES ("${name.name}")`).then(res=>{
+        resolve(res[0]);
+      }).catch(_err => {
+        reject(_err);
       });
-      console.log('en el save', choosenCards, name);
+    });
+  }
+
+  getLocalDeckByName(name){
+    return new Promise<any>((resolve, reject) => {
+      this.db.query(`SELECT * FROM deck WHERE deckName = "${name}"`).then(res=>{
+        console.log('LOCAL DECK',res.item(0));
+      });
     });
   }
 }
