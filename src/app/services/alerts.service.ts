@@ -12,20 +12,28 @@ export class AlertsService {
   ) { }
 
   async presentAlert(message, subHeader, header) {
+    return new Promise<void>(async (resolve, reject) => {
     const alert = await this.alertController.create({
       header,
       subHeader,
       message,
-      buttons: ['OK'],
+      backdropDismiss: false,
+      buttons: [{
+        text: 'OK',
+        handler: () => {
+          resolve();
+        }
+      }],
     });
-
     await alert.present();
+    });
   }
 
   async presentAlertToSaveDeck() {
     return new Promise<object>(async (resolve, reject) => {
       const alert = await this.alertController.create({
-        header: 'Ingrese nombre del mazo',
+        subHeader: 'Ingrese nombre del mazo',
+        backdropDismiss: false,
         inputs: [
           {
             name: 'name',

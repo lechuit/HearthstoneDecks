@@ -65,7 +65,6 @@ export class CreateDeckPage implements OnInit {
       if (addCard.count < 4) {
         addCard.count++;
         this.contador++;
-        console.log(this.contador);
         if (!this.choosenCards.find(c => c.cardId === card.cardId)) {
           this.choosenCards.push(addCard);
         }
@@ -102,13 +101,14 @@ export class CreateDeckPage implements OnInit {
   }
 
   saveDeck() {
-    console.log('1');
     return new Promise((resolve, reject) => {
       this.alertService.presentAlertToSaveDeck().then(nameDeck => {
         this.deckProvider.saveLocalDeck(nameDeck).then(() => {
           this.deckProvider.getLocalDeckByName(nameDeck).then(result => {
             this.deckProvider.saveLocalDeckCards(result.deckId,this.choosenCards).then(res => {
-              resolve(res);
+              this.alertService.presentAlert('Mazo guardado!','','').then(r=>{
+                resolve(r);
+              });
             }).catch(err => {
               reject(err);
             });
