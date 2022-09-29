@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {CardProvider} from '../../providers/card.provider';
 import {AlertsService} from '../../services/alerts.service';
 import {DeckProvider} from '../../providers/deck.provider';
+import {NavController} from "@ionic/angular";
 
 @Component({
   selector: 'app-create-deck',
@@ -29,8 +30,12 @@ export class CreateDeckPage implements OnInit {
     public cardService: CardProvider,
     public alertService: AlertsService,
     public deckProvider: DeckProvider,
+    public navCtrl: NavController
   ) {
     this.className = this.router.getCurrentNavigation().extractedUrl.queryParams.className;
+    if (this.className === 'undefined'){
+      this.navCtrl.navigateForward('/choose-hero',);
+    }
     this.cards = 'card_class';
     this.cardService.getLocalCards().then(res => {
       this.classCards = res.filter(c => c.playerClass === this.className).map((c) => {
@@ -99,16 +104,25 @@ export class CreateDeckPage implements OnInit {
   saveDeck() {
     console.log('1');
     return new Promise((resolve, reject) => {
-      this.alertService.presentAlertToSaveDeck().then(res => {
-        this.deckProvider.saveLocalDeck(res).then(result => {
-          console.log('FINISH INSERT DECK', result);
+      this.alertService.presentAlertToSaveDeck().then(nameDeck => {
+        this.deckProvider.saveLocalDeck(nameDeck).then(() => {
+          this.deckProvider.getLocalDeckByName(nameDeck).then(result => {
+            this.deckProvider.saveLocalDeckCards(result.deckId,this.choosenCards).then(res => {
+              resolve(res);
+            }).catch(err => {
+              reject(err);
+            });
+          }).catch(err => {
+            reject(err);
+          });
+        }).catch(err => {
+          reject(err);
         });
+      }).catch(err => {
+        reject(err);
       });
+    }).then(()=>{
+      this.navCtrl.navigateForward('/home');
     });
-    /*this.deckProvider.saveLocalDeck(this.choosenCards).then(res => {
-    }).catch(err => {
-      console.log(err);
-      this.alertService.presentAlert('Error al guardar mazo', '','',false);
-    });*/
   }
 }
