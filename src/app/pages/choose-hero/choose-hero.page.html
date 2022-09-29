@@ -1,21 +1,23 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Selecciona tu Heroe</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-text-center">
+<ion-content>
   <ion-row>
     <ion-col size="6" *ngFor="let hero of heroes" (click)="chooseClass(hero.className)">
       <ion-card>
-        <img src="{{hero.image}}" height="150" width="150"/>
+        <ion-img src="{{hero.image}}"></ion-img>
         <ion-card-content>
           <ion-card-title class="ion-text-center">
             {{hero.className}}
           </ion-card-title>
         </ion-card-content>
       </ion-card>
-
     </ion-col>
   </ion-row>
 </ion-content>

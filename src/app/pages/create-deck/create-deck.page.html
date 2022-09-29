@@ -1,11 +1,14 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Deck</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="row-padding">
-  <ion-row class="row-padding">
+<ion-content>
+  <ion-row>
     <ion-segment [(ngModel)]="cards">
       <ion-segment-button value="card_class">
         {{className}}
@@ -30,7 +33,7 @@
                   <ion-icon name="caret-down-outline"></ion-icon>
                 </ion-button>
               </ion-col>
-              <ion-col class="card-count" style="color: white">
+              <ion-col class="card-count">
                 {{card.count}}
               </ion-col>
               <ion-col class="ion-text-center" (click)="addDeck(card)">
@@ -42,14 +45,14 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <pagination-controls style="color: white" (pageChange)="pagClassCard = $event"></pagination-controls>
+      <pagination-controls (pageChange)="pagClassCard = $event"></pagination-controls>
     </ion-row>
 
     <ion-row *ngSwitchCase="'neutral_class'">
       <ion-col size="6" *ngFor="let card of neutralCards | paginate: {itemsPerPage: 10, currentPage: pagNeutralCard};" class="">
         <ion-card>
           <img [lazyLoad]="card.img">
-          <ion-card-content>
+          <ion-card-content class="ion-text-center">
             <ion-row>
               <ion-col (click)="removeDeck(card)">
                 <ion-button color="danger">
@@ -59,7 +62,7 @@
               <ion-col class="card-count">
                 {{card.count}}
               </ion-col>
-              <ion-col (click)="addDeck(card)" class="ion-text-center" >
+              <ion-col (click)="addDeck(card)" >
                 <ion-button color="secondary">
                   <ion-icon name="caret-up-outline"></ion-icon>
                 </ion-button>
@@ -68,14 +71,14 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <pagination-controls class="ion-color-secondary" (pageChange)="pagNeutralCard = $event"></pagination-controls>
+      <pagination-controls (pageChange)="pagNeutralCard = $event"></pagination-controls>
     </ion-row>
 
     <ion-row *ngSwitchCase="'choosen_cards'">
       <ion-col size="6" *ngFor="let card of choosenCards | paginate: {itemsPerPage: 10, currentPage: pagChooseCard};" class="">
         <ion-card>
           <img [lazyLoad]="card.img">
-          <ion-card-content>
+          <ion-card-content class="ion-text-center">
             <ion-row>
               <ion-col (click)="removeDeck(card)">
                 <ion-button color="danger">
@@ -94,7 +97,7 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <pagination-controls class="ion-color-dark" (pageChange)="pagChooseCard = $event"></pagination-controls>
+      <pagination-controls (pageChange)="pagChooseCard = $event"></pagination-controls>
     </ion-row>
   </ion-row>
 </ion-content>

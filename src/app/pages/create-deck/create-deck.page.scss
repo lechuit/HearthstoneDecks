@@ -11,7 +11,14 @@ ion-card-content {
 .listMargin{
   margin: 5px;
 }
+::ng-deep ul > li:not(.active) > a {
+  color: white !important;
+}
 
-a, span{
-  color: white;
+::ng-deep ul > li.disabled > span {
+  color: white !important;
+}
+
+::ng-deep ul > li.active > a {
+  color: white !important;
 }
