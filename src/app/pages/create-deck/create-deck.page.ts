@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CardProvider} from '../../providers/card.provider';
 import {AlertsService} from '../../services/alerts.service';
+import {DeckProvider} from '../../providers/deck.provider';
 
 @Component({
   selector: 'app-create-deck',
@@ -26,7 +27,8 @@ export class CreateDeckPage implements OnInit {
   constructor(
     public router: Router,
     public cardService: CardProvider,
-    public alertService: AlertsService
+    public alertService: AlertsService,
+    public deckProvider: DeckProvider,
   ) {
     this.className = this.router.getCurrentNavigation().extractedUrl.queryParams.className;
     this.cards = 'card_class';
@@ -46,12 +48,10 @@ export class CreateDeckPage implements OnInit {
   }
 
 
-  addDeck(card) {
+  addCardToDeck(card) {
     if (this.contador === 50) {
       this.hiddenBtnSave = false;
       this.alertService.presentAlert('Limite de cartas alcanzado', '', '');
-      console.log('Limite de cartas en el mazo');
-
     } else {
       const addCard = card.playerClass === 'Neutral' ?
         this.neutralCards.find(c => c.cardId === card.cardId) :
@@ -67,13 +67,13 @@ export class CreateDeckPage implements OnInit {
       }
       if (this.contador === 50) {
         this.hiddenBtnSave = false;
-      }else{
+      } else {
         this.hiddenBtnSave = true;
       }
     }
   }
 
-  removeDeck(card) {
+  removeCardDeck(card) {
     const subtracCard = card.playerClass === 'Neutral' ?
       this.neutralCards.find(c => c.cardId === card.cardId) :
       this.classCards.find(c => c.cardId === card.cardId);
@@ -90,14 +90,24 @@ export class CreateDeckPage implements OnInit {
       }
       if (this.contador === 50) {
         this.hiddenBtnSave = false;
-      }else{
+      } else {
         this.hiddenBtnSave = true;
       }
     }
   }
 
   saveDeck() {
-
-    console.log(this.choosenCards);
+    console.log('1');
+    return new Promise((resolve, reject) => {
+      this.alertService.presentAlertToSaveDeck().then(res => {
+        console.log('desde el create', res);
+        this.deckProvider.saveLocalDeck(this.choosenCards, res);
+      });
+    });
+    /*this.deckProvider.saveLocalDeck(this.choosenCards).then(res => {
+    }).catch(err => {
+      console.log(err);
+      this.alertService.presentAlert('Error al guardar mazo', '','',false);
+    });*/
   }
 }
