@@ -8,7 +8,9 @@ import {CardProvider} from '../../providers/card.provider';
   styleUrls: ['./create-deck.page.scss'],
 })
 export class CreateDeckPage implements OnInit {
-
+  pagClassCard = 1;
+  pagNeutralCard = 1;
+  pagChooseCard = 1;
   defaultImg = 'assets/images/back.png';
 
   className: any;
@@ -36,29 +38,32 @@ export class CreateDeckPage implements OnInit {
 
 
   addDeck(card) {
-    const plusCard = card.playerClass === 'Neutral' ?
+    const addCard = card.playerClass === 'Neutral' ?
       this.neutralCards.find(c => c.cardId === card.cardId) :
       this.classCards.find(c => c.cardId === card.cardId);
 
-    console.log('help');
-    console.log(plusCard);
-
-    console.log(plusCard.count);
-
-    if (plusCard.count < 4) {
-      plusCard.count++;
-      console.log(plusCard.count);
-      console.log(this.choosenCards);
-
+    if (addCard.count < 4) {
+      addCard.count++;
       if (!this.choosenCards.find(c => c.cardId === card.cardId)) {
-        this.choosenCards.push(plusCard);
+        this.choosenCards.push(addCard);
       }
     }
   }
 
   removeDeck(card) {
-    console.log('test');
+    const subtracCard = card.playerClass === 'Neutral' ?
+      this.neutralCards.find(c => c.cardId === card.cardId) :
+      this.classCards.find(c => c.cardId === card.cardId);
+
+    if (subtracCard.count > 0) {
+      subtracCard.count--;
+
+      if (subtracCard.count === 0) {
+        const indexCard = this.choosenCards.findIndex(c => c.id === card.id);
+        if (indexCard > -1) {
+          this.choosenCards.splice(indexCard , 1);
+        }
+      }
+    }
   }
-
-
 }

@@ -1,13 +1,24 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { CreateDeckPageRoutingModule } from './create-deck-routing.module';
+import {CreateDeckPageRoutingModule} from './create-deck-routing.module';
 
-import { CreateDeckPage } from './create-deck.page';
-import {LazyLoadImageModule} from "ng-lazyload-image";
+import {CreateDeckPage} from './create-deck.page';
+import {Attributes, IntersectionObserverHooks, LAZYLOAD_IMAGE_HOOKS, LazyLoadImageModule} from 'ng-lazyload-image';
+import {NgxPaginationModule} from 'ngx-pagination';
+
+export class LazyLoadImageHooks extends IntersectionObserverHooks {
+  setup(attributes: Attributes) {
+    attributes.offset = 10;
+    attributes.defaultImagePath = 'assets/images/back.png';
+    attributes.errorImagePath = 'https://d15f34w2p8l1cc.cloudfront.net/hearthstone/' +
+      '49715e42324ffb11328cf4aa8ec3e7ad0b48bb6c45dba17eb42f53a8f162b554.png';
+    return super.setup(attributes);
+  }
+}
 
 @NgModule({
   imports: [
@@ -15,8 +26,11 @@ import {LazyLoadImageModule} from "ng-lazyload-image";
     FormsModule,
     IonicModule,
     CreateDeckPageRoutingModule,
-    LazyLoadImageModule
+    LazyLoadImageModule,
+    NgxPaginationModule
   ],
-  declarations: [CreateDeckPage]
+  declarations: [CreateDeckPage],
+  providers: [{provide: LAZYLOAD_IMAGE_HOOKS, useClass: LazyLoadImageHooks}],
 })
-export class CreateDeckPageModule {}
+export class CreateDeckPageModule {
+}

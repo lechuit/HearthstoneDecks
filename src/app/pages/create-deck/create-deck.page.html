@@ -20,9 +20,9 @@
   </ion-row>
   <ion-row [ngSwitch]="cards">
     <ion-row *ngSwitchCase="'card_class'">
-      <ion-col size="6" *ngFor="let card of classCards">
+      <ion-col size="6" *ngFor="let card of classCards | paginate: {itemsPerPage: 10, currentPage: pagClassCard};" class="">
         <ion-card>
-          <img [defaultImage]="defaultImg" [lazyLoad]="card.img">
+          <img [lazyLoad]="card.img">
           <ion-card-content class="ion-text-center">
             <ion-row>
               <ion-col (click)="removeDeck(card)">
@@ -42,12 +42,13 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
+      <pagination-controls style="color: white" (pageChange)="pagClassCard = $event"></pagination-controls>
     </ion-row>
 
     <ion-row *ngSwitchCase="'neutral_class'">
-      <ion-col size="6" *ngFor="let card of neutralCards">
+      <ion-col size="6" *ngFor="let card of neutralCards | paginate: {itemsPerPage: 10, currentPage: pagNeutralCard};" class="">
         <ion-card>
-          <img [defaultImage]="defaultImg" [lazyLoad]="card.img">
+          <img [lazyLoad]="card.img">
           <ion-card-content>
             <ion-row>
               <ion-col (click)="removeDeck(card)">
@@ -67,12 +68,13 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
+      <pagination-controls class="ion-color-secondary" (pageChange)="pagNeutralCard = $event"></pagination-controls>
     </ion-row>
 
     <ion-row *ngSwitchCase="'choosen_cards'">
-      <ion-col size="6" *ngFor="let card of choosenCards">
+      <ion-col size="6" *ngFor="let card of choosenCards | paginate: {itemsPerPage: 10, currentPage: pagChooseCard};" class="">
         <ion-card>
-          <img [defaultImage]="defaultImg" [lazyLoad]="card.img">
+          <img [lazyLoad]="card.img">
           <ion-card-content>
             <ion-row>
               <ion-col (click)="removeDeck(card)">
@@ -81,6 +83,7 @@
                 </ion-button>
               </ion-col>
               <ion-col class="card-count">
+                {{card.count}}
               </ion-col>
               <ion-col (click)="addDeck(card)">
                 <ion-button color="secondary">
@@ -91,7 +94,7 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
+      <pagination-controls class="ion-color-dark" (pageChange)="pagChooseCard = $event"></pagination-controls>
     </ion-row>
-
   </ion-row>
 </ion-content>
