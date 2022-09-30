@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { EditDeckPageRoutingModule } from './edit-deck-routing.module';
 
 import { EditDeckPage } from './edit-deck.page';
+import {NgxPaginationModule} from "ngx-pagination";
+import {LazyLoadImageModule} from "ng-lazyload-image";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EditDeckPageRoutingModule
+    EditDeckPageRoutingModule,
+    NgxPaginationModule,
+    LazyLoadImageModule
   ],
   declarations: [EditDeckPage]
 })

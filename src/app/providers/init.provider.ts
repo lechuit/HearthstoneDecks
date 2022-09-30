@@ -16,7 +16,6 @@ export class InitProvider {
   ) { }
 
   initDatabase() {
-    console.log('INIT DB');
     return new Promise((resolve, reject) => {
       const initCardProvider = this.card.init();
       const initDeckProvider = this.deckProvider.init();

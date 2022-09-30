@@ -1,0 +1,46 @@
+.row-padding{
+  padding: 16px;
+}
+ion-card-content {
+  -webkit-padding-start: 0px;
+  -padding-inline-start: 0px;
+  -webkit-padding-end: 0px;
+  -padding-inline-end: 0px;
+
+}
+.listMargin{
+  margin: 5px;
+}
+::ng-deep ul > li:not(.active) > a {
+  color: white !important;
+}
+
+::ng-deep ul > li.disabled > span {
+  color: white !important;
+}
+
+::ng-deep ul > li.active > a {
+  color: white !important;
+}
+
+ion-footer{
+  margin: 0 !important;
+  ion-grid{
+    padding: 0 !important;
+    ion-col{
+      padding: 0 !important;
+      ion-button{
+        min-height: 45px;
+        margin: 0 !important;
+        .icon-rigth{
+          position: absolute;
+          right: 20px;
+        }
+        .icon-left{
+          position: absolute;
+          left: 20px;
+        }
+      }
+    }
+  }
+}

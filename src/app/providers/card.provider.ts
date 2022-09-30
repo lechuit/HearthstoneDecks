@@ -14,7 +14,6 @@ export class CardProvider {
   }
 
   init = () => {
-    console.log('[Configs][init]');
     return new Promise((resolve, reject) => {
       this.db.query(`
         CREATE TABLE IF NOT EXISTS cards
@@ -58,13 +57,11 @@ export class CardProvider {
                 'VALUES ("'+card["cardId"]+'","'+card["name"]+'","'+card["cardSet"]+'","'+card["faction"]+'","'+card["img"]+'","'+
                 card["playerClass"]+'","'+card["type"]+'")');
             }
-          }).then(res => {
-            console.log(res);
+          }).then(() => {
+            resolve();
           }));
       });
       resolve();
-    }).then(res => {
-      console.log('FINISH INSERT');
     });
   }
 

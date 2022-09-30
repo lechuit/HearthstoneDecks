@@ -35,7 +35,6 @@ export class DbProvider {
   }
 
   query(q: string, params?: any): Promise<any> {
-    console.log('[Database][query]', q, params);
     return new Promise((resolve, reject) => {
       this.sqlite.create(this.options).then((db: SQLiteObject) => {
         db.executeSql(q, params)

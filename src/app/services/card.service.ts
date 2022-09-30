@@ -14,7 +14,6 @@ export class CardService {
   ) { }
 
   loadCards() {
-    console.log('[Load][Cards]');
     return new Promise( (resolve, reject) => {
       if(this.connectivity.isOnline()) {
         this.card.getLocalCards().then(res => {
@@ -28,7 +27,6 @@ export class CardService {
           }
         });
       }else {
-        console.log('OFF-LINE');
         this.card.getLocalCards().then(res => {
           resolve(res);
         });

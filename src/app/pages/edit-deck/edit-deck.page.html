@@ -1,9 +1,118 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>editDeck</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Deck</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-row>
+    <ion-segment [(ngModel)]="cards">
+      <ion-segment-button value="card_class">
+        {{className}}
+      </ion-segment-button>
+      <ion-segment-button value="neutral_class">
+        Neutral
+      </ion-segment-button>
+      <ion-segment-button value="choosen_cards">
+        Deck
+      </ion-segment-button>
+    </ion-segment>
+  </ion-row>
+  <ion-row [ngSwitch]="cards">
+    <ion-row *ngSwitchCase="'card_class'">
+      <ion-col size="6" *ngFor="let card of classCards | paginate: {itemsPerPage: 10, currentPage: pagClassCard};" class="">
+        <ion-card>
+          <img [lazyLoad]="card.img">
+          <ion-card-content class="ion-text-center">
+            <ion-row>
+              <ion-col (click)="removeCardDeck(card)">
+                <ion-button color="danger">
+                  <ion-icon name="caret-down-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col class="card-count">
+                {{card.count}}
+              </ion-col>
+              <ion-col class="ion-text-center" (click)="addCardToDeck(card)">
+                <ion-button color="secondary">
+                  <ion-icon name="caret-up-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <pagination-controls (pageChange)="pagClassCard = $event"></pagination-controls>
+    </ion-row>
 
+    <ion-row *ngSwitchCase="'neutral_class'">
+      <ion-col size="6" *ngFor="let card of neutralCards | paginate: {itemsPerPage: 10, currentPage: pagNeutralCard};" class="">
+        <ion-card>
+          <img [lazyLoad]="card.img">
+          <ion-card-content class="ion-text-center">
+            <ion-row>
+              <ion-col (click)="removeCardDeck(card)">
+                <ion-button color="danger">
+                  <ion-icon name="caret-down-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col class="card-count">
+                {{card.count}}
+              </ion-col>
+              <ion-col (click)="addCardToDeck(card)" >
+                <ion-button color="secondary">
+                  <ion-icon name="caret-up-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <pagination-controls (pageChange)="pagNeutralCard = $event"></pagination-controls>
+    </ion-row>
+
+    <ion-row *ngSwitchCase="'choosen_cards'">
+      <ion-col size="6" *ngFor="let card of choosenCards | paginate: {itemsPerPage: 10, currentPage: pagChooseCard};" class="">
+        <ion-card>
+          <img [lazyLoad]="card.img">
+          <ion-card-content class="ion-text-center">
+            <ion-row>
+              <ion-col (click)="removeCardDeck(card)">
+                <ion-button color="danger">
+                  <ion-icon name="caret-down-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col class="card-count">
+                {{card.count}}
+              </ion-col>
+              <ion-col (click)="addCardToDeck(card)">
+                <ion-button color="secondary">
+                  <ion-icon name="caret-up-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <pagination-controls (pageChange)="pagChooseCard = $event"></pagination-controls>
+    </ion-row>
+  </ion-row>
 </ion-content>
+
+<ion-footer [hidden]="hiddenBtnSave">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button expand="full" (click)="saveDeck()">
+          Save Deck
+          <ion-label>
+            <ion-icon color="" slot="" name="chevron-forward-outline"></ion-icon>
+          </ion-label>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

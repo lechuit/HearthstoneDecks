@@ -12,7 +12,6 @@ export class DeckProvider {
   }
 
   init = () => {
-    console.log('[Configs][init]');
     return new Promise<void>((resolve, reject) => {
       this.createTableDeck().then(() => {
         this.createTableDeckCards().then(() => {
@@ -96,13 +95,6 @@ export class DeckProvider {
   saveLocalDeckCards(deckId, arrayChooseCards) {
     return new Promise<void>((resolve, reject) => {
       Object.keys(arrayChooseCards).forEach(key => {
-        console.log(`INSERT
-        OR IGNORE INTO deckCards (deckId, cardId, amount)
-        VALUES (
-        ${deckId},
-        "${arrayChooseCards[key].cardId}",
-        ${arrayChooseCards[key].count}
-        )`);
         this.db.query(`INSERT
         OR IGNORE INTO deckCards (deckId, cardId, amount)
         VALUES (
@@ -135,18 +127,21 @@ export class DeckProvider {
     });
   }
 
-  getAllCardInDeck() {
+  getAllCardInDeck(deckId) {
     return new Promise<any>((resolve, reject) => {
       this.db.query(`SELECT *
-                     FROM deck`).then(res => {
-        const arrayDecks = [];
+                     FROM deckCards
+                            JOIN deck ON deck.deckId = deckCards.deckId
+                            JOIN cards ON cards.cardId = deckCards.cardId
+                     WHERE deck.deckId = ${deckId}`).then(res => {
+        const arrayCardsInDeck = [];
         if (res.length > 0) {
           for (let i = 0; i < res.length; i++) {
-            arrayDecks.push(res.item(i));
+            arrayCardsInDeck.push(res.item(i));
           }
-          resolve(arrayDecks);
+          resolve(arrayCardsInDeck);
         } else {
-          resolve(arrayDecks);
+          resolve(arrayCardsInDeck);
         }
       });
     });

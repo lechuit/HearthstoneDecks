@@ -11,7 +11,6 @@ export class ConnectivityService {
     public platform: Platform,
     public network: Network
   ) {
-    console.log('[Connectivity][constructor]');
     this.onDevice = this.platform.is('cordova');
   }
 

@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-row>
-    <ion-col size="12" *ngFor="let deck of decks">
+    <ion-col size="6" *ngFor="let deck of decks">
       <ion-card (click)="editDeck(deck.deckId)">
         <ion-img src="{{deck.img}}"></ion-img>
         <ion-card-content>

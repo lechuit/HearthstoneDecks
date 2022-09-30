@@ -42,7 +42,6 @@ export class CreateDeckPage implements OnInit {
         c.count = 0;
         return c;
       });
-      console.log(this.classCards,'classDard');
       this.neutralCards = res.filter(c => c.playerClass === 'Neutral').map((c) => {
         c.count = 0;
         return c;

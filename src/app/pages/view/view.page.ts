@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DeckProvider} from '../../providers/deck.provider';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-view',
@@ -11,6 +12,7 @@ export class ViewPage implements OnInit {
   public decks: any;
   constructor(
     public deckProvider: DeckProvider,
+    public router: Router
   ) {
     this.heroes=[
       { className: 'Warrior', image: '/assets/images/garrosh.png' },
@@ -47,7 +49,7 @@ export class ViewPage implements OnInit {
   }
 
   editDeck(deckId) {
-    this.deckProvider.getAllCardInDeck();
+      this.router.navigate(['/edit-deck'],{queryParams:{deckId}});
   }
 
 }
