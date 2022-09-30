@@ -4,7 +4,7 @@ import {CardProvider} from '../../providers/card.provider';
 import {AlertsService} from '../../services/alerts.service';
 import {NavController} from '@ionic/angular';
 import {DeckService} from '../../services/deck.service';
-import {DeckProvider} from "../../providers/deck.provider";
+import {DeckProvider} from '../../providers/deck.provider';
 
 @Component({
   selector: 'app-edit-deck',
@@ -44,10 +44,11 @@ export class EditDeckPage implements OnInit {
       this.data = res;
       this.choosenCards =res;
       for(let i = 0; i <= res.length; i++){
-        console.log(res[i]);
-        console.log(res[i].amount);
         if (typeof res[i] !== 'undefined') {
           this.contador += res[i].amount;
+        }
+        if (this.contador === 50) {
+          this.hiddenBtnSave = false;
         }
       }
     });
